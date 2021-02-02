@@ -2,6 +2,8 @@ package com.simplilearn.phase2endproject.controller;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -22,6 +24,8 @@ import com.simplilearn.phase2endproject.service.UserService;
  */
 @Controller
 public class UserController {
+
+	Logger logger = LoggerFactory.getLogger(UserController.class);
 
 	@Autowired
 	UserService userService;
@@ -92,12 +96,12 @@ public class UserController {
 	/**
 	 * update user and redirect to homepage
 	 * @param updatedUser
-	 * @return homepage
+	 * @return homepagelok
 	 */
 	@PostMapping("/update-user")
 	public String updateUser(@ModelAttribute("user") User updatedUser) {
 		userService.updateUserHobby(updatedUser.getId(), updatedUser.getHobby());
-		
+		logger.info("UPDATE (hobby) to " + updatedUser.getHobby());
 		return "redirect:/";
 	}
 	
